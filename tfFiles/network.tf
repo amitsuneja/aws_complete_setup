@@ -5,7 +5,7 @@ resource "aws_vpc" "MyVpc" {
          tags = {
             Name = "MyVpc"
             Location= var.LOCATION
-            CIDR_Block = var.VPC_CIDR_BLOCK
+            CIDR_Block = "var.VPC_CIDR_BLOCK"
             ResourceType ="VPC"
      }
 }
