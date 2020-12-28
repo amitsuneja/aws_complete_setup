@@ -20,6 +20,9 @@ resource "aws_route53_zone" "selected" {
 
 locals {
   nameOfDCs = join(".", [var.DNSNAME,var.DOMAINNAME])
+  AdFirstIp = sort(aws_directory_service_directory.MyActiveDirectory.dns_ip_addresses)[0]
+  AdSecondIp = sort(aws_directory_service_directory.MyActiveDirectory.dns_ip_addresses)[1]
+
 }
 
 
@@ -124,71 +127,73 @@ resource "aws_route53_record" "ldap0010" {
         records             = aws_directory_service_directory.MyActiveDirectory.dns_ip_addresses
 }
 
-resource "aws_route53_zone" "MyPvtZoneDB" {
-        comment             = "ReversePrivateDNSZone"
 
+# Create zone for pointer records
+
+resource "aws_route53_zone" "MyPvtZoneDB" {
+  comment = "ReversePrivateDNSZone"
   name = format("%s.%s.in-addr.arpa.",element( split(".", aws_vpc.MyVpc.cidr_block) ,1),
       element( split(".", aws_vpc.MyVpc.cidr_block) ,0),)
 }
 
+# add first pointer record to PRT zone
+resource "aws_route53_record" "RevRecDC1" {
+  zone_id = aws_route53_zone.MyPvtZoneDB.id
+  name = join(".",[element(split(".",local.AdFirstIp),3)], [element(split(".",local.AdFirstIp),2)])
+  type = "PTR"
+  ttl = "300"
+  records = [local.nameOfDCs]
+}
 
-#resource "aws_route53_record" "RevRecDC1" {
-#  zone_id = aws_route53_zone.MyPvtZoneDB.id
-#  name = "${var.DNS1IPREV}"
-#  type = "PTR"
-#  ttl = "300"
-#  records = ["${var.DNS1NAME}.${var.DOMAINNAME}"]
-#}
+
+# add Second  pointer record to PRT zone
+resource "aws_route53_record" "RevRecDC2" {
+  zone_id = aws_route53_zone.MyPvtZoneDB.id
+  name = join(".",[element(split(".",local.AdSecondIp),3)], [element(split(".",local.AdSecondIp),2)])
+  type = "PTR"
+  ttl = "300"
+  records = [local.nameOfDCs]
+}
 
 
 
-#resource "aws_route53_record" "RevRecDC2" {
-#  zone_id = "${aws_route53_zone.MyPvtZoneDB.id}"
-#  name = "${var.DNS2IPREV}"
-#  type = "PTR"
-#  ttl = "300"
-#  records = ["${var.DNS2NAME}.${var.DOMAINNAME}"]
-#}
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#resource "aws_route53_record" "masterdb-sql" {
-#        zone_id             = "${aws_route53_zone.selected.zone_id}"
-#        name                = "masterdb-sql.${aws_route53_zone.selected.name}"
-#        type                = "A"
-#        ttl                 = "300"
-#        records             = ["${var.MasterDB_INST_PRIVATE_IP}"]
-#}
-#
-#
-#resource "aws_route53_record" "slavedb-sql" {
-#        zone_id             = "${aws_route53_zone.selected.zone_id}"
-#        name                = "slavedb-sql.${aws_route53_zone.selected.name}"
-#        type                = "A"
-#        ttl                 = "300"
-#        records 	    = ["${var.SlaveDB_INST_PRIVATE_IP}"]
-#}
-#
-#resource "aws_route53_record" "basionhost" {
-#        zone_id             = "${aws_route53_zone.selected.zone_id}"
-#        name                = "basionhost.${aws_route53_zone.selected.name}"
-#        type                = "A"
-#        ttl                 = "300"
-#        records             = ["${var.BASIONHOST_PRIVATE_IP}"]
-#}
-#
-#resource "aws_route53_record" "Adwriter" {
-#        zone_id             = "${aws_route53_zone.selected.zone_id}"
-#        name                = "Adwriter.${aws_route53_zone.selected.name}"
-#        type                = "A"
-#        ttl                 = "300"
-#        records             = ["${var.ADWRITER_INST_PRIVATE_IP}"]
-#}
-#
+
+
+
+# create records for normal servers
+
+
+
+resource "aws_route53_record" "masterdb-sql" {
+        zone_id             = aws_route53_zone.selected.zone_id
+        name                = join(".",[ "masterdb-sql", var.DOMAINNAME])
+        type                = "A"
+        ttl                 = "300"
+        records             = [var.MasterDB_INST_PRIVATE_IP]
+}
+
+
+
+resource "aws_route53_record" "slavedb-sql" {
+        zone_id             = aws_route53_zone.selected.zone_id
+        name                = join(".",[ "slavedb-sql", var.DOMAINNAME])
+        type                = "A"
+        ttl                 = "300"
+        records 	    = [var.SlaveDB_INST_PRIVATE_IP]
+}
+
+resource "aws_route53_record" "basionhost" {
+        zone_id             = aws_route53_zone.selected.zone_id
+        name                = join(".",[ "basionhost", var.DOMAINNAME])
+        type                = "A"
+        ttl                 = "300"
+        records             = [var.BASIONHOST_PRIVATE_IP]
+}
+
+resource "aws_route53_record" "Adwriter" {
+        zone_id             = aws_route53_zone.selected.zone_id
+        name                = join(".",[ "Adwriter", var.DOMAINNAME])
+        type                = "A"
+        ttl                 = "300"
+        records             = [var.ADWRITER_INST_PRIVATE_IP]
+}
