@@ -98,8 +98,8 @@ variable "S3_BUCKET_NAME" {
    default = "amitsuneja.xyz-mysql-backup"
 }
 
-variable "DNS1NAME-PATH" {
-   default = "/tmp/dns1name.txt"
+variable "DNSNAME" {
+   default = "ns1"
 }
 
 variable "DNS1IP-PATH" {
