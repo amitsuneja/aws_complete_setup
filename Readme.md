@@ -1,11 +1,19 @@
-## We are trying to implement pipeline using AWS teraafrom
 
-l.Generate ssh key from aws portal by name Vpn.public in portal and save its private key  with name Vpn.public.ppk in your unix host from where you are running terraform scripts in a directory /tfFiles/keyDir/Vpn.public.ppk
+ We are trying to implement pipeline using AWS teraafrom
+
+l. Generate ssh key from aws portal by name Vpn.public in portal and save its private key  with name Vpn.public.ppk in your unix host from where you are running terraform scripts in a directory tfFiles/keyDir/Vpn.public.ppk
 
 Note: do not change file names like Vpn.public in aws and Vpn.public.ppk for private key when saving private key from aws.
 
 
-2.Copy Vpn.public.ppk in /tfFiles/keyDir/Vpn.public.ppk. 
+2. Copy Vpn.public.ppk in tfFiles/keyDir/Vpn.public.ppk
+
+
+3. run script tfFiles/unixScripts
+# Note this script assume you are using RHEL7 server as terraform server from where you will run terraform apply.
+# elseyou can download pem file from AWS or use windows to convert ppk to pem
+# .ppk is for putty and .pem is to login from unix to unix
+
 
 
 
