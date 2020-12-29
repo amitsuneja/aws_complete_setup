@@ -18,12 +18,8 @@ resource "aws_instance" "BasionHost" {
   monitoring                  = false
   private_ip                  = var.BASIONHOST_PRIVATE_IP
   user_data                   = data.template_file.BasionHost_data.rendered
-#  provisioner "local-exec" { command = "touch ${path.module}/AwsHostDir/aws_hosts" }
-#  provisioner "local-exec" { command = "rm ${path.module}/AwsHostDir/aws_hosts" }
-#  provisioner "local-exec" { command = "echo [BasionHost:vars] >> ${path.module}/AwsHostDir/aws_hosts" }
-#  provisioner "local-exec" { command = "echo ansible_ssh_private_key_file=${path.module}/PlayBooks/Vpn.pem >> ${path.module}/AwsHostDir/aws_hosts" }
-#  provisioner "local-exec" { command = "echo [BasionHost] >> ${path.module}/AwsHostDir/aws_hosts" }
-#  provisioner "local-exec" { command = "echo ${aws_instance.BasionHost.public_ip} >> ${path.module}/AwsHostDir/aws_hosts" }
+provisioner "local-exec" {command = "echo [BasionHost] > ${path.module}/dynamicFiles/aws_hosts"}
+provisioner "local-exec" {command = "echo ${aws_instance.BasionHost.public_ip} >> ${path.module}/dynamicFiles/aws_hosts"}
 #  provisioner "local-exec" { command = "/bin/bash ${path.module}/UnixScript/CheckSshPort.sh ${aws_instance.BasionHost.public_ip}" } 
 #  provisioner "local-exec" { command = "ansible-playbook -i ${path.module}/AwsHostDir/aws_hosts ${path.module}/PlayBooks/BasionHost.yml" }
 #  provisioner "local-exec" { command = "ansible-playbook -i ${path.module}/AwsHostDir/aws_hosts ${path.module}/PlayBooks/Basiondns.yml" }

@@ -2,7 +2,7 @@
 **/.terraform/*
 
 # ssh key file
-**/tfFiles/keyDir/*
+**/tfFiles/keyDir/Vpn.public.ppk
 
 # .tfstate files
 *.tfstate

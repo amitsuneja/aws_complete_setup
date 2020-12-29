@@ -1,6 +1,31 @@
 # We are trying to implement pipeline using AWS teraafrom
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 https://github.com/C2Devel/terraform-examples/tree/master/cases
 
 
