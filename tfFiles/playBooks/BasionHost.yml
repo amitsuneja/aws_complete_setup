@@ -38,12 +38,6 @@
         owner: ec2-user
         group: ec2-user
         mode: 0400
-    - name: creating softlink 
-      file:
-        src: /usr/bin/clear
-        dest: /usr/bin/cls
-        owner: root
-        group: root
     - name: Changing hostname of instance to basionhost
       command:  /bin/bash -c "sudo hostnamectl set-hostname basionhost" 
     - name: Make sure openswan is started now and at boot.
@@ -54,23 +48,12 @@
       command: "firewall-cmd --permanent --zone=public --add-masquerade"
     - name: Reloading firewalld
       command: "firewall-cmd --reload"
-    - name: Check if machine is bound
-      shell: /bin/bash -c "realm list | grep sssd"
-      register: realmd_bound
-      changed_when: false
-      ignore_errors: true
     - name: Joining Active Directory Domain
       expect:
-        command: /bin/bash -c "sudo realm join -U administrator@amitsuneja.xyz amitsuneja.xyz"
+        command: /bin/bash -c "sudo realm join -v -U administrator@amitsuneja.xyz amitsuneja.xyz"
         responses:
           Password for *: "{{ bind_password }}"
-      when: realmd_bound|failed
-  handlers:
-    - name: restart sssd
-      service:
-        name: sssd
-        state: restarted
     - name: Installing Powershell on Linux
-      command:  curl https://packages.microsoft.com/config/rhel/7/prod.repo | sudo tee /etc/yum.repos.d/microsoft.repo
+      shell:  /usr/bin/curl https://packages.microsoft.com/config/rhel/7/prod.repo | /usr/bin/sudo /usr/bin/tee /etc/yum.repos.d/microsoft.repo
     - name: Installing Powershell on Linux1
       command:  sudo yum install -y powershell
