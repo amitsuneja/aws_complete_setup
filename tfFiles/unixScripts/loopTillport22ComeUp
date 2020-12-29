@@ -20,5 +20,6 @@ do
              test=0
    else
              test=1
+	     sleep 10
    fi
 done

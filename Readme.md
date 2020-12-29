@@ -15,10 +15,10 @@ Note: do not change file names like Vpn.public in aws and Vpn.public.ppk for pri
  elseyou can download pem file from AWS or use windows to convert ppk to pem
  .ppk is for putty and .pem is to login from unix to unix
 
-
-
-
-
+Note : once Bastion host is created with rendered user data using template  . We will create a dynamic inverntory and store its IP in tfFiles/dynamicFiles/aws_hosts, then we will pick terraform variable and pass it to playbook we will run on bastion host. Remember -e switch in ansible is use to pass variable from  CLI , -i in to specify inventory 
+          
+example : ansible-playbook -e "user_name=bob user_create=yes" user.yml 
+we passed 2 variables to ansible in above example.
 
 
 

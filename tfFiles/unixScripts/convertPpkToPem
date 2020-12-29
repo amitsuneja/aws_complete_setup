@@ -1,0 +1,6 @@
+#installing epel repo on rhel7
+sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+# installling putty
+yum install -y putty
+# convery ppk to pem file
+puttygen ../keyDir/Vpn.public.ppk -O private-openssh -o ../keyDir/Vpn.public.pem
