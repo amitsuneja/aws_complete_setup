@@ -1,4 +1,8 @@
-# We are trying to implement pipeline using AWS teraafrom
+## We are trying to implement pipeline using AWS teraafrom
+l. Generate ssh key from aws portal by name Vpn.public in portal and save it with name Vpn.public.ppk in your desktop.
+2. copy  Vpn.public.ppk in /tfFiles/keyDir/Vpn.public.ppk (already have entry in .gitignore file
+
+
 
 
 
