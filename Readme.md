@@ -21,7 +21,7 @@ example : ansible-playbook -e "user_name=bob user_create=yes" user.yml
 we passed 2 variables to ansible in above example.
 
 
-
+4. edit /etc/ansible/ansible.cfg and add deprecation_warnings=False in bottom of file
 
 
 
