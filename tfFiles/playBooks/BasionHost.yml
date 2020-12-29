@@ -3,15 +3,12 @@
   hosts: BasionHost
   become: yes
   remote_user: ec2-user
-  vars:
-      bind_password : Welcome@1234 
-
   tasks:
     - name: Installing softwares like firewall and openswan
       yum: name={{ item }} state=present
       with_items:
-      - firewalld #unhash this to install firewall
-      - openswan #unhash this in case you want to use openswan VPN
+      - firewalld 
+      - openswan 
       - realmd
       - krb5-workstation
       - oddjob
@@ -40,9 +37,9 @@
         mode: 0400
     - name: Changing hostname of instance to basionhost
       command:  /bin/bash -c "sudo hostnamectl set-hostname basionhost" 
-    - name: Make sure openswan is started now and at boot.
+    - name: Make sure firewalld is started now and at boot.
       service: name=firewalld state=started enabled=yes
-    - name: Make sure firewall is started now and at boot.
+    - name: Make sure ipsec is started now and at boot.
       service: name=ipsec state=started enabled=yes
     - name: Enabling masquerade permanently in firewall configuration
       command: "firewall-cmd --permanent --zone=public --add-masquerade"
