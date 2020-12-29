@@ -1,3 +1,6 @@
+# Note:- this will also create 2 network interfaces, that requirment of Active Directory.
+
+
 resource "aws_directory_service_directory" "MyActiveDirectory" {
        name       = var.DOMAINNAME
        password   = var.DOMAINADMINPASSWORD

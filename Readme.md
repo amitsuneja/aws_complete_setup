@@ -24,3 +24,8 @@ git ls-tree -r master --name-only
 
 If you want a list of files that ever existed (i.e. including deleted files):
 git log --pretty=format: --name-only --diff-filter=A | sort - | sed '/^$/d'
+----------------------------------------------------------------------------------------
+
+
+1l. Generate ssh key from aws portal by name Vpn.public	in portal and save it with name Vpn.public.ppk in your desktop.
+2. copy  Vpn.public.ppk in /tfFiles/keyDir/Vpn.public.ppk (already have entry in .gitignore file
