@@ -5,7 +5,7 @@ l.Generate ssh key from aws portal by name Vpn.public in portal and save its pri
 Note: do not change file names like Vpn.public in aws and Vpn.public.ppk for private key when saving private key from aws.
 
 
-2.Copy Vpn.public.ppk in /tfFiles/keyDir/Vpn.public.ppk (already have entry in .gitignore file) so if this directory is not created after you clone this repository then create it manually.
+2.Copy Vpn.public.ppk in /tfFiles/keyDir/Vpn.public.ppk. 
 
 
 
