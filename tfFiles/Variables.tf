@@ -82,7 +82,7 @@ variable "SlaveDB_INST_PRIVATE_IP" {
 }
 
 variable "CENTOS7_CUSTOMIZED_AMI" {
-   default = "ami-ceb15ab3"
+   default = "ami-0be2609ba883822ec"
 }
 
 variable "NAT_INST_TYPE" {

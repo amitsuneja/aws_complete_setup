@@ -1,5 +1,5 @@
 data "template_file" "BasionHost_data" {
-       template             = file(path.module/templateFiles/BasionHost.tpl)
+       template             = file("${path.module}/templateFiles/BasionHost.tpl")
 }
 
 resource "aws_instance" "BasionHost" {
