@@ -9,7 +9,8 @@ Note: do not change file names like Vpn.public in aws and Vpn.public.ppk for pri
 2. Copy Vpn.public.ppk in tfFiles/keyDir/Vpn.public.ppk
 
 
-3. run script tfFiles/unixScripts
+3. run script tfFiles/unixScripts/convertPpkToPem
+
  Note this script assume you are using RHEL7 server as terraform server from where you will run terraform apply.
  elseyou can download pem file from AWS or use windows to convert ppk to pem
  .ppk is for putty and .pem is to login from unix to unix
