@@ -1,6 +1,11 @@
 ## We are trying to implement pipeline using AWS teraafrom
-l. Generate ssh key from aws portal by name Vpn.public in portal and save it with name Vpn.public.ppk in your desktop.
-2. copy  Vpn.public.ppk in /tfFiles/keyDir/Vpn.public.ppk (already have entry in .gitignore file
+
+l.Generate ssh key from aws portal by name Vpn.public in portal and save its private key  with name Vpn.public.ppk in your unix host from where you are running terraform scripts in a directory /tfFiles/keyDir/Vpn.public.ppk
+
+Note: do not change file names like Vpn.public in aws and Vpn.public.ppk for private key when saving private key from aws.
+
+
+2.Copy Vpn.public.ppk in /tfFiles/keyDir/Vpn.public.ppk (already have entry in .gitignore file) so if this directory is not created after you clone this repository then create it manually.
 
 
 
