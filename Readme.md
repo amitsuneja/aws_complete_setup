@@ -12,6 +12,13 @@ https://techoral.com/blog/java/install-openjdk-8-linux.html
 
 https://alexharv074.github.io/2019/11/23/adventures-in-the-terraform-dsl-part-x-templates.html#introduction
 
+
+
+# Jinja templating
+https://ttl255.com/jinja2-tutorial-part-1-introduction-and-variable-substitution/
+
+
+
 If you want to list all the files currently being tracked under the branch master, you could use this command:
 git ls-tree -r master --name-only
 
