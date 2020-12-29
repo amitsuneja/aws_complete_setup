@@ -3,6 +3,7 @@
 
 # ssh key file
 **/tfFiles/keyDir/Vpn.public.ppk
+**/tfFiles/keyDir/Vpn.public.pem
 
 # .tfstate files
 *.tfstate

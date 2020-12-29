@@ -20,3 +20,5 @@ echo " " >> $logFile
 ln -s /usr/bin/clear /usr/bin/cls >> $logFile
 echo " " >> $logFile
 echo "_____________________________"  >> $logFile
+amazon-linux-extras install epel -y
+yum-config-manager --enable epel

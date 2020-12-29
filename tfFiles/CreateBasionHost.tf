@@ -20,7 +20,7 @@ resource "aws_instance" "BasionHost" {
   user_data                   = data.template_file.BasionHost_data.rendered
 provisioner "local-exec" {command = "echo [BasionHost] > ${path.module}/dynamicFiles/aws_hosts"}
 provisioner "local-exec" {command = "echo ${aws_instance.BasionHost.public_ip} >> ${path.module}/dynamicFiles/aws_hosts"}
-#  provisioner "local-exec" { command = "/bin/bash ${path.module}/UnixScript/CheckSshPort.sh ${aws_instance.BasionHost.public_ip}" } 
+#provisioner "local-exec" {command = "/bin/bash ${path.module}/unixScripts/loopTillport22ComeUp ${aws_instance.BasionHost.public_ip}"} 
 #  provisioner "local-exec" { command = "ansible-playbook -i ${path.module}/AwsHostDir/aws_hosts ${path.module}/PlayBooks/BasionHost.yml" }
 #  provisioner "local-exec" { command = "ansible-playbook -i ${path.module}/AwsHostDir/aws_hosts ${path.module}/PlayBooks/Basiondns.yml" }
 

@@ -41,7 +41,7 @@ variable "PVT_SUBNET_B_CIDR_BLOCK" {
 }
 
 variable "HOMEIPADDRESS"{ 
-    default = ["106.215.107.200/32"]
+    default = ["106.215.107.200/32","20.55.101.111/32"]
 }
 
 variable "DOMAINNAME" {
