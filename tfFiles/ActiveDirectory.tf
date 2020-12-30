@@ -1,4 +1,5 @@
-# Note:- this will also create 2 network interfaces, that requirment of Active Directory.
+# Note:- this will also create 2 network interfaces and Security Group that requirment of Active Directory.
+#        We will see later if we can find a way to Tag them as well.
 
 
 resource "aws_directory_service_directory" "MyActiveDirectory" {
