@@ -31,7 +31,7 @@
     - name: Copying key file to MumNatInst for ec2-user
       copy:
         src: ../../keyDir/Vpn.public.pem
-        dest: /home/ec2-user/Vpn.public.pem
+        dest: /home/ec2-user/.ssh/Vpn.public.pem
         owner: ec2-user
         group: ec2-user
         mode: 0400
