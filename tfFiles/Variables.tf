@@ -127,7 +127,7 @@ variable "ADMIN_PASSWORD_WINSERVER" {
 }
 
 variable "WINDOWS2012BASER2AMI" {
-      default = "ami-c951acb4"
+      default = "ami-0229f7666f517b31e"
 }
 
 variable "ADWRITER_INST_PRIVATE_IP" {
