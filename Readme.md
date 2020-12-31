@@ -34,9 +34,40 @@ we passed 2 variables to ansible in above example.
 6. cd tfFiles and run terraform plan and terraform apply.
 
 
-7. Must Pay attention to Bastion.tf - It shows how to connect ansible to terraform. And also show how how we read  .tpl(template file as data and passwd it as user data to new server(tpl file contain  script/commands we cant to execute on host once it got created)
+7. Must Pay attention to Bastion.tf - It shows how to connect ansible to terraform using local-exec provisioner, it invokes a local executable after a resource is created. This invokes a process on the machine running Terraform, not on the resource. 
 
-8. Must Pay attention to  how we picked variable from teraaform and passed then to data -this data will be used as userdata
+${path.module} is variable of terraform.
+provisioner "local-exec" {command = "echo [BasionHost:vars] > ${path.module}/dynamicFiles/aws_hosts"}
+
+Ansible need to know which key to use when it will run playbook for bastin host 
+provisioner "local-exec" {command = "echo ansible_ssh_private_key_file=${path.module}/keyDir/Vpn.public.pem >> ${path.module}/dynamicFiles/aws_hosts"}
+
+Creating local file Inventory for Ansible.
+provisioner "local-exec" {command = "echo [BasionHost] >> ${path.module}/dynamicFiles/aws_hosts"}
+
+Need to know then private IP of Bastin host and dump it in Ansible Inventory.
+provisioner "local-exec" {command = "echo ${aws_instance.BasionHost.public_ip} >> ${path.module}/dynamicFiles/aws_hosts"}
+
+Loop till port 22 starting listening ..
+provisioner "local-exec" {command = "/bin/bash ${path.module}/unixScripts/loopTillport22ComeUp ${aws_instance.BasionHost.public_ip}"}
+
+
+Lets run playbook on Bastin Host.
+provisioner "local-exec" {command = "ansible-playbook -e bind_password=${var.DOMAINADMINPASSWORD} -i ${path.module}/dynamicFiles/aws_hosts ${path.module}/playBooks/BasionHost.yml"}
+
+
+
+
+ And also show how how we read  .tpl(template file as data and passwd it as user data to new server(tpl file contain  script/commands we cant to execute on host once it got created, it happens before local-exec steps.)
+
+
+
+
+
+
+
+8. Must Pay attention to  how we picked variable from teraaform and passed then to data -this data will be used to generate userdata for server creation.
+ 
 data "template_file" "MasterDB-sql_data" {
         template = file("${path.module}/templateFiles/MasterDB-sql.tpl")
        vars = {
