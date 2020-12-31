@@ -102,25 +102,6 @@ variable "DNSNAME" {
    default = "ns1"
 }
 
-variable "DNS1IP-PATH" {
-      default = "/tmp/dns1ip.txt"
-}
-
-variable "DNS1IP-PATH-REV" {
-      default = "/tmp/dns1ip_reverse.txt"
-}
-
-variable "DNS2NAME-PATH" {
-   default = "/tmp/dns2name.txt"
-}
-
-variable "DNS2IP-PATH" {
-      default = "/tmp/dns2ip.txt"
-}
-
-variable "DNS2IP-PATH-REV" {
-      default = "/tmp/dns2ip_reverse.txt"
-}
 
 variable "ADMIN_PASSWORD_WINSERVER" {
       default = "Welcome@0987"

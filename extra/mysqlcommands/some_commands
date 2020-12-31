@@ -1,0 +1,12 @@
+mysql -uroot
+show databases
+create database my_webApp_db;
+use my_webApp_db;
+show tables;
+CREATE TABLE test (a INT NOT NULL, b CHAR(10));
+show tables;
+DESCRIBE test;
+INSERT INTO test VALUES(1, "amit");
+select * from test;
+
+

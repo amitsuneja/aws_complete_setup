@@ -17,8 +17,8 @@ do
 done
 echo "Adding Required softwared to Join Domain" > /myscripts/InstallingRpms.out 2>&1
 echo "yum -y install realmd krb5-workstation oddjob oddjob-mkhomedir sssd samba-common-tools expect" > /myscripts/InstallingRpms.sh
-echo "yum -y install nmap-ncat" > /myscripts/InstallingRpms.sh
-sh -x /myscripts/InstallingRpms.sh > /myscripts/InstallingRpms.out 2>&1
+echo "yum -y install nmap-ncat" >> /myscripts/InstallingRpms.sh
+sh -x /myscripts/InstallingRpms.sh >> /myscripts/InstallingRpms.out 2>&1
 echo "set DOMAINNAME ${DOMAINNAME}" > /myscripts/DomainJoin.exp 2>&1
 echo "set DOMAINPASSWORD ${DOMAINADMINPASSWORD}" >> /myscripts/DomainJoin.exp 2>&1
 echo "spawn sudo realm join -U administrator@${DOMAINNAME} ${DOMAINNAME}" >> /myscripts/DomainJoin.exp 2>&1
