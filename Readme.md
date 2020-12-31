@@ -32,6 +32,26 @@ we passed 2 variables to ansible in above example.
 
 
 6. cd tfFiles and run terraform plan and terraform apply.
+
+
+7. Must Pay attention to Bastion.tf - It shows how to connect ansible to terraform. And also show how how we read  .tpl(template file as data and passwd it as user data to new server(tpl file contain  script/commands we cant to execute on host once it got created)
+
+8. Must Pay attention to  how we picked variable from teraaform and passed then to data -this data will be used as userdata
+data "template_file" "MasterDB-sql_data" {
+        template = file("${path.module}/templateFiles/MasterDB-sql.tpl")
+       vars = {
+               DOMAINNAME          = var.DOMAINNAME
+               DOMAINADMINPASSWORD = var.DOMAINADMINPASSWORD
+               MYREPUSER           = var.MYREPUSER
+               MYREPPASS           = var.MYREPPASS
+               NEWROOT             = var.NEWROOT
+               NEWROOTPASS         = var.NEWROOTPASS
+               MasterDB_INST_PRIVATE_IP = var.MasterDB_INST_PRIVATE_IP
+       }
+}
+
+
+
 ---------------------------------------------------------------------------------------------------------------------
 
 
@@ -51,7 +71,9 @@ we passed 2 variables to ansible in above example.
 
 
 
-
+--------------------------------------------------------------------------------------------------------------
+few good links
+--------------------------------------------------------------------------------------------------------------
 
 
 
@@ -70,15 +92,6 @@ https://alexharv074.github.io/2019/11/23/adventures-in-the-terraform-dsl-part-x-
 https://thirdiron.com/one-step-beyond-intro-tutorials-configure-terraform-server-https-ssl/
 
 
-
 # Jinja templating
 https://ttl255.com/jinja2-tutorial-part-1-introduction-and-variable-substitution/
-
-
-
-If you want to list all the files currently being tracked under the branch master, you could use this command:
-git ls-tree -r master --name-only
-
-If you want a list of files that ever existed (i.e. including deleted files):
-git log --pretty=format: --name-only --diff-filter=A | sort - | sed '/^$/d'
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------
