@@ -83,6 +83,49 @@ data "template_file" "MasterDB-sql_data" {
 
 
 
+9. Must pay attenion to LaunchConfiguration.tf where we did not used template gile , instead we generated user_data on the fly.
+
+    user_data                   = <<EOF
+                                  #!/bin/bash
+                                  yum install -y httpd
+                                  systemctl enable httpd
+                                  systemctl start httpd
+                                  echo "I am Web Server" > /var/www/html/index.html
+                                  EOF
+
+
+
+10. Must pay attension to CreateAdwriter.tf. Check how we wrote templateFiles/Adwriter.tpl
+
+This is like a .bat file of windows . <script> and </script> is must , Cant pass more number of command here ,SO we try to use & to join commands. Quite tricky . Make sure to redirect output so that you can read logs later.
+
+
+
+winrm - is used by windows , you can connect via http or https to run windows command . We used http .
+It is littel complex and if you face issue with it then you can use /extra/connect_to_windows_using_python3_pywinrm/windows_connect.py this python3 script , Manually change IP and password and run it . If it runs then your winrm iis working .
+I used python here for troubleshooting as it has better error in output then terraform.
+ 
+<script>
+winrm quickconfig -q & winrm set winrm/config/winrm @{MaxMemoryPerShellMB="300"} & winrm set winrm/config @{MaxTimeoutms="1800000"} & winrm set winrm/config/service @{AllowUnencrypted="true"} & winrm set winrm/config/service/auth @{Basic="true"} & winrm set winrm/config/service @{AllowUnencrypted="true"} > c:\userDatatStatus.txt
+</script>
+
+
+Powershell commnds goes here
+
+
+<powershell>
+echo "Status before userdata powershell executed" | Out-File C:\userDatabeforepowershellstatus.txt
+-changes in firewall.
+netsh advfirewall firewall add rule name="WinRM in http" protocol=TCP dir=in profile=any localport=5985 remoteip=any localip=any action=allow
+netsh advfirewall firewall add rule name="WinRM in https" protocol=TCP dir=in profile=any localport=5986 remoteip=any localip=any action=allow
+netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
+-reset password for local admin user , so later we can login with it and connect to AD.
+$admin = [ADSI]("WinNT://./administrator, user")
+$admin.SetPassword("${ADMIN_PASSWORD_WINSERVER}")
+echo "Status after userdata powershell executed" | Out-File C:\userDataafterpowershellstatus.txt
+</powershell>
+   
+
 ---------------------------------------------------------------------------------------------------------------------
 
 
