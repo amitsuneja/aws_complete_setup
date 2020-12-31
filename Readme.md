@@ -2,7 +2,7 @@ To Download this Repo :
 https://github.com/amitsuneja/aws_complete_setup.git
 
 
-
+----------------------------------------------------------------------------------------------------------
 
 We are trying to implement pipeline using AWS teraafrom
 
@@ -26,7 +26,13 @@ example : ansible-playbook -e "user_name=bob user_create=yes" user.yml
 we passed 2 variables to ansible in above example.
 
 
-4. edit /etc/ansible/ansible.cfg and add deprecation_warnings=False in bottom of file
+4. edit /etc/ansible/ansible.cfg and add deprecation_warnings=False
+
+5. Check the .bashrc file given in repo and set your .bashrc accordingly.
+
+
+6. cd tfFiles and run terraform plan and terraform apply.
+---------------------------------------------------------------------------------------------------------------------
 
 
 
